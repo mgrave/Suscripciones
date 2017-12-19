@@ -1,0 +1,42 @@
+extends ../templates/default
+
+block content
+
+  .row
+     .col-md-12
+        i(class="fa fa-spinner fa-spin fa-3x fa-fw text-loading", style="margin-top: 50px; margin-left: 480px; margin-bottom: 150px; font-size: 80px;")
+          span(class="sr-only")= 'Cargando registros'
+
+  div(class='row')
+    div(class='col-md-6 col-md-offset-3')
+
+      div(class='panel panel-default')
+        div(class='panel-heading')
+          p(class='text-center')=producto[0].DESCRIPCION
+        div(class='panel-body')
+          .row
+
+            
+            .col-md-5
+              p='CLIENTE : ' + producto[0].CLIENTE
+              p='SHORTCODE : ' + producto[0].IDS
+              p='CATEGORIA : ' + producto[0].CATEGORIA
+              p='TARIFA : ' + producto[0].TARIFA
+            .col-md-7
+              if telefonos.length > 0
+                p='Selecciona el número a suscribir : '
+                select#dato.selectpicker.animated.flipInX.(style="padding: 3px 12px;")
+                  for dato in telefonos 
+                    option
+                      em #{dato.OPERADORA} - 
+                      strong #{dato.TELEFONOS}
+                hr
+                a(href = "http://192.168.1.43:3000/users/mis-suscripciones" class="btn btn-primary suscribir" data= producto[0].IDP idcliente = producto[0].IDCLIENTE) Suscríbete ahora
+              else
+                div(class='alert alert-danger text-center' role='alert' style="margin-top: 10px;")= 'Actualmente no tienes ningún teléfono asociado   '
+                  span.glyphicon.glyphicon-remove
+                  p Dirígete a 
+                    a(href="http://192.168.1.43:3000/users/numeros")="Teléfonos" 
+
+
+

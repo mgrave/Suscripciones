@@ -1,0 +1,85 @@
+nav.font-black.navbar.navbar-default.navbar-static-top(role='navigation')
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a(class="navbar-brand" href="#")
+        i(class="fa fa-mobile icon-brand" aria-hidden="true")
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse.animated.fadeIn
+      
+
+
+
+
+      if data || Productos
+        ul.nav.navbar-nav.animated.fadeIn
+              
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | Gestiones
+                    span.caret
+                  ul.dropdown-menu.animated.flipInX(role='menu')
+                    li
+                      a(href='/admin/notifications')  Control de notificaciones 
+                    li
+                      a(href='/admin/notificationsAdv')  Control de notificaciones (Avanzado)
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | Asociados
+                    span.caret
+                  ul.dropdown-menu.animated.flipInX(role='menu')
+                    li
+                      a(href='/admin/users')   Panel de asociados
+                    li
+                      a(href='/admin/numeros')   Búsqueda telefónica
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | Configuración
+                    span.caret
+                  ul.dropdown-menu.animated.flipInX(role='menu')
+                    li
+                      a(href='/admin/email')   Correos asociados
+                    li
+                      a(href='/admin/fechaProducto')   Actualización de productos
+              ul.nav.navbar-nav.navbar-right
+                li
+                  p.navbar-text
+                
+
+
+                li.dropdown
+                  
+                    a.dropdown-toggle.text-capitalize(href='#', data-toggle='dropdown')
+                      | ADMINISTRADOR #{admin}
+                      span.caret
+                    ul.dropdown-menu.animated.flipInX(role='menu')
+                      li
+                          a(href='/admin/logout')  Cerrar Sesión
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           

@@ -1,0 +1,26 @@
+extends ../templates/default
+
+block content
+  div(class='row animated fadeIn fast')
+
+    div(class='col-md-6 col-md-offset-3')
+      .notice.notice-info
+        | Edición de 
+        strong usuario.
+      div(class='alert alert-default text-center' role='alert')= msg
+      div(class='panel panel-default')
+        div(class='panel-heading')= 'Editar tus datos'
+        div(class='panel-body')
+          form(action= '/users/panel' method='post')
+            div(class='form-group')
+              label(for="email")='Correo Electrónico'
+              input(type='email' name='username' value=user.email class="form-control" disabled )
+            div(class='form-group')
+              label(for="text")='Nombre'
+              input(type='text' name='nombre' id='nombre'  placeholder="Ingresa el nuevo nombre" class="form-control" )
+            div(class='form-group')
+              label(for="text")='Apellido'
+              input(type='text' name='apellido' id='apellido'  placeholder="Ingresa el nuevo apellido" class="form-control" )
+            button(type='submit' class='btn btn-info editar-datos' )='Editar datos'
+            a(href="/nuevacontrasena" class='btn btn-warning' style="margin-left: 10px;")='Editar contraseña'
+

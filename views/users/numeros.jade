@@ -1,0 +1,82 @@
+extends ../templates/default
+
+block content
+    .container
+      .row
+        .notice.notice-info.animated.fadeIn.fast
+          | Listado de tus 
+          strong números teléfonicos  
+          | asociados al sistema.
+        .col-md-12
+          i(class="fa fa-spinner fa-spin fa-3x fa-fw text-loading", style="margin-top: 50px; margin-left: 480px; margin-bottom: 150px; font-size: 80px;")
+            span(class="sr-only")= 'Cargando registros'
+      .row
+        if telefonos.length > 0
+          .col-md-8.col-md-offset-2.numeretes
+            table.display.table.table-hover.table-condensed.table-striped.points_table(cellspacing='0' width='100%')
+              if messages.length > 0
+                div(class='alert alert-warning' role='alert')= messages
+              thead
+                tr
+                  th Operadora
+                  th Número
+                  th Status
+                  th Accion
+              tbody
+                for dato in telefonos
+                  tr
+                    td#idcs #{dato.PREFIJO}
+                    td#idcs #{dato.TELEFONOS}
+                    if dato.ACTIVO == 1
+                      td
+                        button(class='btn btn-info btn-sm btn-ver', style="padding: 5px 6px; cursor:default;")= 'Verificado ' 
+                          span.glyphicon.glyphicon-ok
+                    else
+                      td
+                        button(class='btn btn-warning btn-sm idx' , data-tlf=dato.TELEFONOS, data-toggle='modal' data-target="#verify" )= 'Verificar  '
+                          span.glyphicon.glyphicon-search
+                    td
+                      button(href="http://192.168.1.43:3000/users/numeros" class='btn btn-danger btn-sm eliminar-numero' ,id="eliminar-numero",  data-id = dato.TELEFONOS, data-operadora = dato.PREFIJO)= 'Eliminar  '
+                        span.glyphicon.glyphicon-remove
+        else
+          div(class='alert alert-danger' role='alert')= 'Agrega un nuevo número de teléfono'
+
+
+      .row
+        hr
+        .col-md-8.col-md-offset-2.animated.fadeIn.fast
+          div.well.well-lg
+            .row
+              .col-md-6
+                label.operadora-label.pull-left="Operadora"
+                .row
+                  .col-md-12
+                    select#dato.pull-left.btn.btn-block(style="margin-top: 1px; padding: 5px 5px; border-radius: 3px;")
+                      for operadora in operadoras
+                        option.text-center #{operadora.descripcion}
+              .col-md-6
+                label.tlf="Número"
+                input(type='text' maxlength="7" id='numerox' style="margin-left: 0;", placeholder="Ej:6149190" class="form-control")
+              br
+              .row
+                .col-md-12.text-center(style="margin-top: 5px; ")
+                  br
+                  a(href="http://192.168.1.43:3000/users/numeros" class='btn btn-success btn-block btn-sm agregar-numero', data-numero= numero)='Agregar nuevo número'
+        #verify.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+                .modal-dialog(role='document')
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                      h5#myModalLabel.modal-title CONFIRMACIÓN DE TELÉFONO 
+                    .modal-body
+                      | Ingresa el código de verificación:
+                      br
+                      input(type='text' name='numero' id='numero' placeholder="Código" class="form-control" )
+                      br
+                      cite='Si aun no recibes el código comunicate con nuestros servicios.'
+                    .modal-footer
+                      button.btn.btn-default(type='button', data-dismiss='modal') Cancelar
+                      button.btn.btn-info.verificar Verificar
+
+                      

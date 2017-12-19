@@ -1,0 +1,15 @@
+
+
+
+.points_table thead{
+  background: #18C1AF;
+  color: #fff;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #18C1AF;
+    border-color: #18C1AF;
+}

@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url(../fonts/Roboto-Light.ttf);
+}
+
+@font-face {
+  font-family: 'Cursive';
+  src: url(../fonts/Satisfy-Regular.ttf);
+}
+
+* {
+  font-family: 'Roboto';
+}
+.titulo {
+  font-family: 'Cursive';
+  font-size: 2.5em;
+}
+.titulo1 {
+  font-family: 'Cursive';
+  font-size: 0.6em;
+}
+
+.clearity {
+  color: red;
+}

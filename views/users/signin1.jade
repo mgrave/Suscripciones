@@ -1,0 +1,23 @@
+extends ../templates/default
+
+
+block content
+  div(class='row')
+    div(class='col-md-6 col-md-offset-3')
+
+      if messages.length > 0
+        div(class='alert alert-warning' role='alert')= messages
+
+      div(class='panel panel-default')
+        div(class='panel-heading')= 'Entrar al sistema'
+        div(class='panel-body')
+          form(action= '/auth/signin' method='post' autocomplete='off')
+            div(class='form-group')
+              label(for="email")='Correo Electrónico'
+              input(type='email' name='username' placeholder='Email' class="form-control" )
+            div(class='form-group')
+              label(for="password")='Contraseña'
+              input(type='password' name='password' id='nombre' placeholder='Ingresa la contraseña' class="form-control" )
+            button(type='submit' class='btn btn-primary')='Iniciar Sesion'
+        if authmessage.length > 0
+          div(class='alert alert-danger' role='alert')= authmessage

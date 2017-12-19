@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/compiler_sass/index.css')
+
+  body
+    include nav-admin
+    block content
+    script(src='/javascripts/jquery.js')
+    script(src='/javascripts/jquery.dataTables.js')
+    script(src='/javascripts/dataTables.bootstrap.min.js')
+    script(src='/javascripts/datatable.responsive.js')
+    script(src='/javascripts/bootstrap.js')
+    script(src='/javascripts/main.js')
+    script(src='/javascripts/MetroNotification.min.js')
+    script(src='/javascripts/notifications.js')
+
+      
+  hr
+  br
+footer.mt-5.animated.fadeIn.fast(style="display:"+footerAttr+"")
+  .container-fluid.bg-faded.mt-5
+    //.container.text-center
+    p 2017
+  .container-fluid.bg-primary.py-3
+    .container.text-center
+      .row.py-3
+        .col-md-12
+          p.text-white.footer-text Insignia Mobile Comunications C.A.
+          p Todos los derechos reservados ©.

@@ -1,0 +1,76 @@
+extends ../templates/default
+
+block content
+  .main.animated.fadeIn.fast
+    .container.animated.fadeIn.fast
+      .row
+        .photo.col-md-5
+          img.pull-right(src='../images/insignia4.gif')
+        .col-md-5.get_form_inner.text-center.home
+          if messages.length > 0
+            div(class='alert alert-warning' role='alert')= messages
+          else
+          if !error
+            if !user
+              strong.__head Regístrate y recibe contenido de nuestros Productos
+              .text-center
+                hr.ortext2
+                form(name='registerForm', action= '/auth/signup' method='post')
+                  p Telefono
+                  .group
+                    select.pull-left.btn.btn-block(style="width:25%;" required='required' name="operadora" id="operadora")
+                      option.text-center(value="0414" id_operadora="1") 0414
+                      option.text-center(value="0424" id_operadora="2") 0424
+                      option.text-center(value="58412" id_operadora="5") 0412
+                      option.text-center(value="158" id_operadora="3" disabled) 0416
+                      option.text-center(value="199" id_operadora="4" disabled) 0426
+
+                    input.pull-right(type='text', name='telefono', id='telefono', required='required' style="width:70%;" maxlength="7")
+                    span.highlight
+                    //span.bar
+                  hr.divider
+                  br
+                  br
+                  p Datos de la cuenta
+                  .group
+                    input(type='text', name='nombre', id='nombre', required='required')
+                    span.highlight
+                    //span.bar
+                    label Nombre
+                  .group
+                    input(type='text', name='apellido', id='apellido', required='required')
+                    span.highlight
+                    //span.bar
+                    label Apellido
+                  .group
+                    input(type='email', name='email', id='email', required='required')
+                    span.smessage
+                    span.highlight
+                    //span.bar
+                    label Correo electrónico
+                  .group
+                    input(type='password', name='password', id='password', required='required' data-toggle="tooltip" data-placement="right" title="Numeros, Letras (mayusculas, minusculas) y Caracteres especiales")
+                    input(type='hidden', name='profile', value='Trainer')
+                    span.highlight
+                    //span.bar
+                    label Contraseña
+                  .group
+                    input(type='password', name='password1', id='password1', required='required')
+                    input(type='hidden', name='profile', value='Trainer')
+                    span.highlight
+                    //span.bar
+                    label Repetir contraseña
+                  
+                  .form-group.text-center
+                    | Al registrarte en nuestro sistema estarías aceptando los 
+                    a(href='', target='_blank') Términos y condiciones
+                  .form-group.text-center
+                    div
+                      button.btn.btn-info.btn-lg.btn-registro(type='submit') Registrar
+                    .container-fluid.loading.hidden
+                      label
+                        span.fa.fa-refresh.fa-spin
+                        |                               Signing up...
+                  p.text-center
+                    | ¿ Ya tienes una cuenta ? 
+                    a(href='/auth/signin', data-toggle='modal') Entrar al sistema

@@ -1,0 +1,52 @@
+extends ../templates/default
+
+block content
+  .row
+    .col-md-1
+       a.btn.btn-danger.btn-lg.text-center.atras.pull-right(href="/users/mis-suscripciones" style="margin-left: 10px; font-size: 18px; margin-right: 0px;")
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    .col-md-11
+      .container.animated.fadeIn.fast
+        .row.suscriptionFile
+          .notice.notice-info
+            | Suscripciones pertenecientes al numero  
+            strong Numero  
+            | #{Linea}-#{Recipiente}
+    
+  if Productos.length < 1
+    p.alert.alert-danger
+      |No presenta suscripciones con este numero telefonico  
+  else
+    .row
+      .col-md-10.col-md-offset-1
+        table#example.display.table.table-hover.table-condensed.table-striped.points_table.suscripcionTable(cellspacing='0', width='100%', style="display:none")
+          thead
+            tr
+              th.text-center Nombre de producto
+              th.text-center Fecha de suscripcion
+              th.text-center Accion
+          tbody
+            each Product in Productos
+              tr
+                td.text-center #{Product.PRODUCTO}
+                td.text-center #{Product.DATE}
+                
+                td.text-center 
+                  button(class="btn btn-danger btn-sm text-center eliminar-suscripcion1" numero= Product.TELEFONO id= Product.ID prefix= Product.PRFIJO NumeroEntrante= NumeroEntrante) Eliminar
+    hr
+
+
+        
+
+
+
+
+
+      
+      
+                  
+
+
+     
+
+

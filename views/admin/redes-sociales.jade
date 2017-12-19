@@ -1,0 +1,7 @@
+extends ../templates/default-admin
+
+block content
+    .container.animated.fadeIn.fast
+      .row
+        for datos in data
+          p #{datos.fontawesome}

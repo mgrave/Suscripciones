@@ -1,0 +1,72 @@
+extends ../templates/default
+
+block content
+  .container.animated.fadeIn.fast
+    .row.suscriptionFile
+      .notice.notice-info
+        | Mis 
+        strong Numeros 
+        | con suscripciones
+      if producto.length < 1
+        div(class='alert alert-danger text-center' role='alert' style="margin-top: 40px ; margin-bottom: 200px")= 'Actualmente no tienes ninguna suscripción    '
+          span.glyphicon.glyphicon-remove
+          p Dirígete a 
+            a(href="http://192.168.1.43:3000/users/productos")="Productos" 
+      else
+        
+         
+          .col-md-3.col-md-offset-1
+            h1.text-warning Movilnet
+              span.badge.badge-default.badge-pill.pull-right.text-center #{Numeros_Movilnet.length}
+              hr
+              ul.list-group
+                if Numeros_Movilnet.length < 1
+                    p.alert.alert-danger
+                      | ¡No hay suscripciones con la siguiente linea!
+                else
+                  each Numero in Numeros_Movilnet
+                    li.list-group-item.justify-content-between
+                      a(href="http://192.168.1.43:3000/users/suscripciones/#{Numero}" style="text-decoration: none;" class="text-secondary") #{Numero}
+                        
+                    br
+              
+          .col-md-3.col-md-offset-1
+            h1.text-success Movistar
+              span.badge.badge-default.badge-pill.pull-right.text-center #{Numeros_Movistar.length}
+              hr
+              ul.list-group
+                if Numeros_Movistar.length < 1
+                  p.alert.alert-danger
+                    | ¡No hay suscripciones con la siguiente linea!
+                else
+                  each Numero in Numeros_Movistar
+                    li.list-group-item.justify-content-between
+                      a(href="http://192.168.1.43:3000/users/suscripciones/#{Numero}" style="text-decoration: none;" class="text-secondary") #{Numero}
+                         
+                    br
+               
+          
+          .col-md-3.col-md-offset-1
+            h1.text-danger Digitel
+              span.badge.badge-default.badge-pill.pull-right.text-center #{Numeros_Digitel.length}
+              hr
+              ul.list-group
+                if Numeros_Digitel.length < 1
+                  p.alert.alert-danger
+                    | ¡No hay suscripciones con la siguiente linea!
+                else
+                  each Numero in Numeros_Digitel  
+                    li.list-group-item.justify-content-between
+                      a(href="http://192.168.1.43:3000/users/suscripciones/#{Numero}" style="text-decoration: none;" class="text-secondary") #{Numero}
+                          
+                    br
+            
+
+      
+      
+                  
+
+
+     
+
+

@@ -1,0 +1,53 @@
+doctype html
+
+html
+  head
+    title= 'Insignia Mobile Comunications C.A.'
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/compiler_sass/index.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/toastr.css')
+    if path == '/home' && user 
+      link(rel='stylesheet', href='/stylesheets/main-dashboard.css')
+       
+
+  body
+
+    include nav1
+    block content
+    script(src='/javascripts/jquery.js')
+    script(src='/javascripts/jquery.dataTables.js')
+    script(src='/javascripts/dataTables.bootstrap.min.js')
+    script(src='/javascripts/datatable.responsive.js')
+    script(src='/javascripts/bootstrap.js')
+    script(src='/javascripts/main.js')
+    script(src='/javascripts/MetroNotification.min.js')
+    script(src='/javascripts/notifications.js')
+    script(src='/javascripts/fecha.js')
+    script(src='/javascripts/toastr.js')
+    script(src='/javascripts/toastr.min.js')
+    
+    
+     
+    
+
+     
+
+
+
+    
+    
+    footer.mt-5.animated.fadeIn.fast.fixedbotton(style="display: "+footerAttr+";position:"+FooterAttr+";right: 0;bottom: 0;left: 0;padding: 1rem;text-align: center;")
+      .container-fluid.bg-faded.mt-2
+        .container.text-center
+      .container-fluid(style="background-color:#C0C0C0;border-radius: 10px;")
+        .container.text-center
+          .row.py-3
+            .col-md-12
+              p.text-white.footer-text Insignia Mobile Comunications C.A.
+              p#fecha 2017 - Todos los derechos reservados ©.
+
+    
+
+
+  

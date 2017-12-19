@@ -1,0 +1,37 @@
+extends ../templates/default-admin
+
+block content
+    .container.animated.fadeIn.fast
+      i(class="fa fa-spinner fa-spin fa-3x fa-fw text-loading", style="margin-top: 50px; margin-left: 480px; font-size: 80px;")
+        span(class="sr-only")= 'Cargando registros'
+      .row
+       .col-md-12
+            table#example.display.table.table-hover.table-condensed.table-striped(cellspacing='0', width='100%', style="display:none")
+              thead
+                tr
+                  th Nombre
+                  th Apellido
+                  th Correo
+                  th Fecha Ingreso
+                  th Editar
+                  th Desactivar
+                  
+              tbody
+                for dato in data 
+                  tr
+                    td= dato.NOMBRE
+                    td= dato.APELLIDO
+                    td= dato.CORREO
+                    td= dato.FECHA
+                    td
+                      a(href='/admin/edit/' + dato.ID, class='btn btn-info btn-sm', data-id= dato.ID, style="padding: 5px 20px;") Editar 
+                        span.glyphicon.glyphicon-wrench
+                    if dato.ACTIVE == 1
+                      td
+                        button(class='btn btn-warning btn-sm desactivated', data-id= dato.ID) Desactivar 
+                          span.glyphicon.glyphicon-remove
+                    else
+                      td
+                        button(class='btn btn-success btn-sm btn-custom-activated activated', data-id= dato.ID, style="padding: 5px 20px;") Activar 
+                          span.glyphicon.glyphicon-ok
+                    

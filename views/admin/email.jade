@@ -1,0 +1,42 @@
+extends ../templates/default-admin
+
+block content
+  
+  .row
+    br
+    .col-md-10.col-md-offset-1
+      .panel-group
+        .panel.panel-info
+          .panel-heading.text-center ADMINISTRACIÓN DE CORREOS ELECTRÓNICOS
+          .panel-body.text-center A través de ésta tabla podrás administrar que direcciones de correos electrónicos recibiran notificaciones.
+    br
+  .row
+    .col-md-12
+        i(class="fa fa-spinner fa-spin fa-3x fa-fw text-loading", style="margin-top: 50px; margin-left: 480px; margin-bottom: 150px; font-size: 80px;")
+          span(class="sr-only")= 'Cargando registros'
+  .container.animated.fadeIn.fast
+    if data.length > 0
+      table#example.display.table.table-hover.table-condensed.table-striped.points_table(cellspacing='0', width='100%', style="display:none")
+        thead
+          th Correo Electrónico
+          th Nombre
+          th Acción
+        tbody
+          for contenido in data
+            tr
+              td #{contenido.email}
+              td #{contenido.name}
+              td
+                a(class="btn btn-danger btn-sm eliminar-email" data-email= contenido.email) Eliminar
+    else
+      p= 'no hay correos asociados'
+    .row
+      .col-md-6
+        input(type='text' id="emailx" placeholder="Agregar un nuevo correo electrónico" class="form-control"  )
+    br
+    .row
+      .col-md-6
+        input(type='text' name='nombre' id="nombrex" placeholder="Agregar un nombre" class="form-control"  )
+    br
+    button(class='btn btn-lg btn-info agregar-email')='Agregar correo electrónico'
+

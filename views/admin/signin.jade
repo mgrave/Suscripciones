@@ -1,0 +1,38 @@
+extends ../templates/default-admin
+
+block content
+  .main.animated.fadeIn.fast
+    // START MAIN
+    .container
+      // START CONTAINER
+      .row
+        // START ROW
+        .photo.col-md-5
+          // START COL 5
+          img.pull-right(src='../images/insignia4.gif')
+        // END COL 5
+        .col-md-4.get_form_inner.text-center.login
+          if messages.length > 0
+            div(class='alert alert-info' role='alert')= messages
+          if authmessage.length > 0
+            div(class='alert alert-danger' role='alert')= authmessage
+          h4.__head Entrar al sistema como 
+            mark ADMINISTRADOR
+          .text-center
+            hr.ortext2
+            form(name='registerForm',action= '/admin/signin' method='post')
+              .group
+                input(type='etext', name='username', required='required')
+                span.smessage
+                span.highlight
+                span.bar
+                label Usuario
+              .group
+                input(type='password', name='password', id='nombre' required='required')
+                input(type='hidden', name='profile', value='Trainer')
+                span.highlight
+                span.bar
+                label Contraseña
+              .form-group.text-center
+                div
+                  button.btn.btn-info.btn-lg(type='submit') Iniciar sesión

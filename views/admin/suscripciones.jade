@@ -1,0 +1,64 @@
+extends ../templates/default-admin
+
+block content
+  .row
+    .col-md-1
+       a.btn.btn-danger.btn-lg.text-center.atras.pull-right(href="/admin/edit/#{idUser}" style="margin-left: 10px; font-size: 18px; margin-right: 0px;")
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    .col-md-11
+      .container.animated.fadeIn.fast
+        .row.suscriptionFile
+          .notice.notice-info
+            | Suscripciones pertenecientes al numero  
+            strong Numero  
+            | #{Linea} - #{Recipiente} 
+  
+  if Productos.length > 0
+    .container
+      br
+      br
+      table#example.display.table.table-hover.table-condensed.table-striped.points_table(cellspacing='0', width='100%', style="display:none")
+        thead
+          tr 
+            th.text-center Producto
+            th.text-center Fecha de suscripcion
+            th.text-center Eliminar
+        tbody
+          for Product in Productos 
+            tr
+              td.text-center #{Product.PRODUCTO}
+              td.text-center #{Product.DATE}
+              td.text-center
+                a(class="btn btn-danger btn-sm glyphicon glyphicon-trash eliminar-suscripcion2" numero=Product.TELEFONO, producto = Product.ID, prefix=Product.PREFIJO, id=idUser, Linea=Product.PRFIJO)
+  else
+    .container 
+      br
+      br
+      br 
+      p.alert.alert-danger.text-center ¡Este numero de telefono no esta suscrito a ningun producto!                              
+
+                        
+            
+
+
+  
+
+
+    
+  
+
+
+        
+
+
+
+
+
+      
+      
+                  
+
+
+     
+
+

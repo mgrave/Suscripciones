@@ -1,0 +1,55 @@
+nav.navbar.navbar-default.custom-navbar
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='http://192.168.1.43:3000/')= 'Inicio  '
+            span.glyphicon.glyphicon-home.blue
+          
+        #navbar.collapse.navbar-collapse
+          if user
+          ul.nav.navbar-nav.navbar-right
+            if user
+              li
+                button.btn.btn-default.nosotros(href='http://192.168.1.43:3000/nosotros', style="margin-top: 10px;")='Sobre nosotros  '
+                  span.glyphicon.glyphicon-certificate.blue
+              li 
+                a(href='http://192.168.1.43:3000/users/productos') Productos   
+                  i(class="fa fa-list-ul" aria-hidden="true")
+              li
+                a(href='http://192.168.1.43:3000/users/mis-suscripciones') Suscripciones  
+                  span.glyphicon.glyphicon-paperclip.blue
+              li
+                a(href='http://192.168.1.43:3000/users/numeros') Teléfonos  
+                  span.glyphicon.glyphicon-phone.blue
+              li 
+                .dropdown
+                  button(class=" btn-custom-name btn btn-default dropdown-toggle" type="button" data-toggle="dropdown")='Bienvenido(a)  ' 
+                    span #{user.nombre}  
+                    span.glyphicon.glyphicon-user.blue
+                    span.caret
+                  ul.dropdown-menu
+                    li 
+                      a(href='http://192.168.1.43:3000/users/panel') Perfil   
+                        span.glyphicon.glyphicon-cog.blue
+                    li 
+                      a(href='http://192.168.1.43:3000/users/panel') Cerrar Sesión  
+                        span.glyphicon.glyphicon-off.blue
+            else
+              li
+                a(href='http://192.168.1.43:3000/home')='Registrarse  '
+                  span.glyphicon.glyphicon-copy.blue
+              li
+                a(href='http://192.168.1.43:3000/nosotros')='Sobre nosotros  '
+                  span.glyphicon.glyphicon-certificate.blue
+              li
+                a(href='http://192.168.1.43:3000/auth/signin')='Iniciar Sesión  '
+                  span.glyphicon.glyphicon-off.blue
+
+
+
+
+

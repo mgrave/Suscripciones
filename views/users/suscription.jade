@@ -1,0 +1,41 @@
+extends ../templates/default
+
+block content
+
+  .container.animated.fadeIn.fast
+    .row.suscriptionFile
+      .notice.notice-info
+        | Listado de 
+        strong suscripciones 
+        | realizadas en el sistema.
+      if data.length < 1
+        div(class='alert alert-danger text-center' role='alert' style="margin-top: 40px ; margin-bottom: 200px")= 'Actualmente no tienes ninguna suscripción    '
+          span.glyphicon.glyphicon-remove
+          p Dirígete a 
+            a(href="http://192.168.1.43:3000/users/productos")="Productos" 
+      else
+        .col-md-10.col-md-offset-1
+              table#example.display.table.table-hover.table-condensed.table-striped.points_table.suscripcionTable(cellspacing='0', width='100%', style="display:none")
+                thead
+                  tr
+                    th.text-center Operadora
+                    th.text-center Teléfono
+                    th.text-center Producto suscrito
+                    th.text-center Fecha
+                    th.text-center Acción
+                tbody
+                  for dato in data
+                    tr
+                      td.text-center #{dato.PRFIJO}
+                      for d in dato.TELEFONO
+                        td.text-center #{d}
+                      for d in dato.PRODUCTO
+                        td.text-center #{d}
+                      td.text-center #{dato.DATE}
+                      td.text-center 
+                        button(class="btn btn-danger btn-sm text-center eliminar-suscripcion1"  numero= dato.TELEFONO id= dato.ID prefix= dato.PRFIJO) Eliminar
+      hr
+
+
+
+

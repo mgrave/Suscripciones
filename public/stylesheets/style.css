@@ -1,0 +1,175 @@
+
+h5{
+  color: rgba(197, 205, 208, .9);
+  margin-left: 30px;
+}
+
+.custom{
+  margin-top: 10px;
+}
+
+.custom-value{
+  width: 50px;
+}
+
+.back{
+  margin-bottom: 10px;
+}
+
+cite {
+  color: #5E514E;
+}
+
+.panel-heading{
+  background: #BCDAF5;
+}
+
+
+.custom-navbar .navbar-right li a{
+  font-size: 15px;
+  margin-left: 10px;
+  font-weight: 300;
+  border-bottom: 1px solid white;
+}
+
+.custom-navbar .navbar-right li a:hover{
+  border-bottom: 1px solid #146182;
+}
+.btn-custom-name{
+  margin-top: 8px;
+}
+.right {
+  margin-left: 160px;
+}
+
+.blue{
+  color: #1E3D68;
+}
+
+.verde {
+  background: #699A63;
+}
+
+.custom-footer {
+  font-size: 20px;
+}
+
+.text-login{
+  margin-left: 195px;
+  margin-top: 0px;
+  text-decoration: none;
+  border: none;
+  color: #328FB8;
+}
+
+.titulo-ask{
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-weight: 300;
+  margin-left: 150px;
+}
+
+label{
+  font-size: 13px;
+  color: #34393E;
+  font-weight: 300px;
+  margin-left: 50px;
+}
+
+.fontcursive{
+  background: black;
+}
+
+.nosotros {
+  border: none;
+  font-weight: 300;
+  color: #34393E;
+  margin-right: 300px;
+}
+
+.btn-custom-header {
+  margin-left: 160px;
+  padding: 10px 50px;
+  font-family: 'Lemonada', cursive;
+  font-weight: 300;
+}
+
+.titulo{
+  margin-right: 50px;
+  margin-top: 130px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  font-weight: 400;
+  font-size: 21px;
+  font-family: 'Lemonada', cursive;
+  color: #54504F;
+}
+
+.titulo1{
+  margin-right: 50px;
+  margin-bottom: 0px;
+  font-weight: 400;
+  font-size: 21px;
+  font-family: 'Lemonada', cursive;
+  color: #54504F;
+}
+
+.titulo-sm{
+  margin-right: 50px;
+  margin-top: 5px;
+  margin-left: 0px;
+  font-weight: 300;
+  font-size: 13px;
+  font-family: 'Lemonada', cursive;
+  color: #54504F;
+}
+
+.adeliminar-numero {
+  display: inline-block;
+  margin-left: 12px;
+}
+.activarTlf{
+  display: inline-block;
+  padding: 4.5px 20px;
+}
+
+/* OPERADORAS */
+
+.movistar, .movilnet, .digitel, .operadoras {
+  border: none;
+  margin-right: 3px;
+}
+
+.digitel{
+  padding: 1.5px 16px;
+}
+
+.movistar {
+  padding: 3.5px 8px;
+}
+
+.movilnet {
+  padding: 4.5px 8px;
+}
+
+.digitel, .movistar, .movilnet {
+  border: 0.5px solid rgba(0, 0, 0, .5);
+}
+
+.operadoras {
+  background: #8376EE  ;
+}
+
+.purple {
+  background: #8376EE  ;
+  color: white;
+}
+
+.iniciar_suscripcion{
+  font-size: 18px;
+}
+
+.btn {
+  border-radius: 0px;
+}

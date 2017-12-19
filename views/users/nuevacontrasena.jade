@@ -1,0 +1,46 @@
+extends ../templates/default
+
+block content
+  .main
+    // START MAIN
+    .container.animated.fadeIn.fast
+      // START CONTAINER
+      .row
+        // START ROW
+        .photo.col-md-5
+          // START COL 5
+          img.pull-right(src='../../images/insignia4.gif')
+        // END COL 5
+
+        if !error
+          .col-md-4.get_form_inner.text-center.login
+            if msgE
+              div(class='alert alert-danger text-center' role='alert')= msgE
+            if msgS
+              div(class='alert alert-success text-center' role='alert')= msgS
+            h4.__head Nueva Contraseña 
+            .text-center
+              hr.ortext2
+              form(name='registerForm', action='/nuevacontrasena', method='post', autocomplete='off')
+                .group
+                  input(type='password', name='password', id="oldpassword" , required='required')
+                  span.smessage
+                  span.highlight
+                  span.bar
+                  label Contraseña anterior
+                .group
+                  input(type='password', name='password1', id="newpassword" , required='required')
+                  span.smessage
+                  span.highlight
+                  span.bar
+                  label Nueva contraseña
+                .group
+                  input(type='password', name='password2', id='newpassword1' required='required')
+                  input(type='hidden', name='profile', value='Trainer')
+                  span.highlight
+                  span.bar
+                  label Repite la contraseña
+                .form-group.text-center
+                  div
+                    button.btn.btn-info.btn-lg.newpwd(type="submit") Aceptar
+

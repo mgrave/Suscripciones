@@ -1,0 +1,109 @@
+extends ../templates/default
+
+block content
+  .main
+    // START MAIN
+    .container
+      // START CONTAINER
+
+      .row
+        // START ROW
+        .photo.col-md-5
+          // START COL 5
+          img.pull-right.animated.fadeIn.fast(src='/images/insignia4.gif')
+        // END COL 5
+        .col-md-4.get_form_inner.text-center.login
+          if messages.length > 0
+            div(class='alert alert-info' role='alert')= messages
+          if authmessage.length > 0
+            div(class='alert alert-danger' role='alert')= authmessage
+          if success
+            div(class='alert alert-info' role='alert')= success
+          h4.__head.animated.fadeIn.fast Entrar al sistema
+          .text-center
+            hr.ortext2
+            form(name='registerForm',action= '/auth/signin' method='post')
+              .group
+                input(type='email', name='username', required='required')
+                span.smessage
+                span.highlight
+                label.animated.fadeIn.fast Correo electrónico
+              .group
+                input(type='password', name='password', id='nombre' required='required')
+                input(type='hidden', name='profile', value='Trainer')
+                span.highlight
+                //span.bar
+                label.animated.fadeIn.fast Contraseña
+              .form-group.text-center
+                div
+                  button.btn.btn-info.btn-lg(type='submit') Iniciar sesión
+                .container-fluid.loading.hidden
+                  label
+                    span.fa.fa-refresh.fa-spin
+                    |                               Signing up...
+              .text-right
+                p.text-center
+                  | ¿ Aún no estás registrado ? 
+                  a(href='/auth/signup', data-toggle='modal') Regístrate
+                p.text-center
+                  | ¿ Olvidaste tu contraseña ? 
+                  a(href='javascript:void(0);', data-toggle='modal', data-target='#recovery') Recuperar contraseña
+
+          #recovery.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+            .modal-dialog.modal-sm(role='document')
+              .modal-content
+                .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                  ul.nav.nav-tabs
+                      li.active
+                        a(data-toggle='tab', href='#SMS') SMS
+                      li
+                        a(data-toggle='tab', href='#EMAIL') EMAIL
+                .modal-body
+                  div.container-fluid
+                    .tab-content
+                      #SMS.tab-pane.fade.in.active(style="width:100%;")
+
+                        p.text-center
+                          |Numero telefonico
+                        
+                        form.form-inline(styl)
+                          row(align="center")
+                            .col-md-4
+                              .form-group
+                                select#operadora.form-control.pull-left(name="operadora" required)
+                                  option.text-center(value="0414" id_operadora="1") 0414
+                                  option.text-center(value="0424" id_operadora="2") 0424
+                                  option.text-center(value="58412" id_operadora="5") 0412
+                                  option.text-center(value="158" id_operadora="3" disabled) 0416
+                                  option.text-center(value="199" id_operadora="4" disabled) 0426
+                            .col-md-8
+                              .form-group
+                                input#telefono.form-control.pull-left.text-center(type='text', placeholder='000-0000', name='telefono' style="width:70%;margin-left: 9%;" maxlength="7" pattern="[0-9]{7}" required)
+                            button.btn.btn-warning.btn-sm.pull-right.enviar-sms(style="width: 15%; margin-top: -14%;")
+                              span.glyphicon.glyphicon-arrow-right
+                            hr.divider
+                          br
+                          br
+                          h5.text-center
+                          |Codigo recibido
+                        span(align="center")
+                          input(type='codigo' name='codigo' id='codigo' placeholder="Codigo" class="form-control" required="true" style="width:100%;")
+               
+                      #EMAIL.tab-pane.fade.in(style="width:100%;")
+                        p.text-center Correo electronico
+                        input(type='correo' name='correo' id='correo' placeholder="Correo Electronico" class="form-control" required="true" style="width:80%;")
+                        span(style="width: 20%;")
+                          button.btn.btn-warning.btn-sm.pull-right.enviar-correo(style="margin-top: -13.5%")
+                            span.glyphicon.glyphicon-arrow-right
+                        br
+                        p.text-center Token recibido
+                        input(type='token' name='token' id='token' placeholder="Token" class="form-control" required="true" style="width:100%;")
+
+                .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Cancelar
+                  //button.btn.btn-info.enviar-email Enviar
+                  button.btn.btn-info.pull-right.check-token.check-code
+                      |Enviar
+

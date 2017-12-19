@@ -1,0 +1,43 @@
+{
+  "name": "login",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "promotion": "node ./scripts/script1.js && node ./scripts/script2.js && node ./scripts/script3.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "~1.17.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.3",
+    "date-format-lite": "^17.7.0",
+    "debug": "~2.6.3",
+    "deepcopy": "^0.6.3",
+    "express": "~4.15.2",
+    "express-session": "^1.15.6",
+    "express-validator": "^3.2.0",
+    "gulp": "^3.9.1",
+    "jade": "~1.11.0",
+    "jsonfile": "^3.0.1",
+    "lodash": "^4.17.4",
+    "md5": "^2.2.1",
+    "memory-cache": "^0.2.0",
+    "moment-timezone": "^0.5.13",
+    "morgan": "~1.8.1",
+    "mysql": "^2.15.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "request": "^2.83.0",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "chart.js": "^2.7.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^3.0.0",
+    "pump": "^1.0.2"
+  }
+}

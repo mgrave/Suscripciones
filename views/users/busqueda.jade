@@ -1,0 +1,94 @@
+extends ../templates/default
+
+block content
+  .container.animated.fadeIn.fast
+      .row
+        if datos.length > 0
+          .col-md-1
+            a.btn.btn-danger.btn-lg.text-center.atras(href="/users/productos" style="margin-left: 10px; font-size: 18px; margin-right: 0px;")
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          .col-md-11
+            .notice.notice-info(style="margin-left: 0px;")
+              | Listado de productos para el número corto :  
+              strong #{datos[0].sc} 
+              | para la operadora: 
+              strong.text-uppercase #{datos[0].descripcion.substr(0,datos[0].descripcion.indexOf(" "))}
+          i(class="fa fa-spinner fa-spin fa-3x fa-fw text-loading", style="margin-top: 50px; margin-left: 480px; margin-bottom: 150px; font-size: 80px;")
+            span(class="sr-only")= 'Cargando registros'
+          if datos == 0
+            div(class='alert alert-danger text-center' role='alert' style="margin-top: 20px; font-size: 18px; margin-bottom: 80px;")= 'No se encontraron resultados con ese número corto  '
+              <i class="fa fa-ban" aria-hidden="true"></i>
+          else
+            if telefonos.length == 0
+              hr
+              br
+              div(class='alert alert-danger text-center' role='alert' style="margin-top: 10px; font-size: 18px; margin-bottom: 80px;")= 'Para registrar un número de telefono para '
+                | #{datos[0].descripcion.substr(0,datos[0].descripcion.indexOf(" "))} dirígete a : 
+                a(href="/users/numeros" style="font-size: 18px;")="Teléfonos" 
+            else
+              .col-md-12.productos
+                .checkbox
+                  label
+                    input(type='checkbox', value='' class='selectAllCustom')
+                    span.cr
+                      i.cr-icon.glyphicon.glyphicon-ok
+                    |   Seleccionar todos los productos
+                .well
+                  table#example.display.table.table-hover.table-condensed.table-striped.points_table(cellspacing='0', width='100%', style="display:none")
+                    thead
+                      tr
+                        th.text-center Categoria
+                        th.text-center Producto 
+                        //- th.text-center Operadora disponible
+                        th.text-center Seleccionar número
+                        th.text-center Suscribir
+                        th.text-center Estado
+                    tbody
+                      for datos_ in datos
+                        tr
+                          td.text-center 
+                            .productosCustom(data = '#{datos_.alias_producto}') 
+                              | #{datos_.alias_producto}
+  
+
+                          td.text-center
+                            .productosCustom(data = '#{datos_.desc_producto}') 
+                              | #{datos_.desc_producto}
+                          //- td.text-center.text-uppercase.no #{datos_.descripcion}
+                          td.text-center
+                            select#dato.selectpicker(style="padding: 3px 12px;")
+                              for dato in telefonos 
+                                option
+                                  em #{dato.PREFIJO} - 
+                                  strong #{dato.TELEFONOS}
+
+                          td.text-center
+                            if datos_.count==0
+                              .checkbox
+                                label
+                                  input.checkbox(type='checkbox' name='producto' descripcion='#{datos_.desc_producto}' data-id='#{datos_.id_producto}' cliente-id='#{datos_.cliente}' operadora='#{datos_.descripcion}' )
+                                  span.cr
+                                    i.cr-icon.glyphicon.glyphicon-ok
+                            else
+                              .checkbox
+                                label
+                                  input.checkbox(type='checkbox' name='producto' descripcion='#{datos_.desc_producto}' data-id='#{datos_.id_producto}' cliente-id='#{datos_.cliente}' operadora='#{datos_.descripcion}' checked disabled)
+                                  span.cr
+                                    i.cr-icon.glyphicon.glyphicon-ok
+                          td.text-center
+                            if datos_.count==0
+                              p.btn.btn-danger no suscrito
+                            else
+                              p.btn.btn-info(style="padding: 5px 19px;") ¡suscrito!
+                .row
+                  .col-md-12.text-center
+                    button.btn.btn-info.iniciar_suscripcion.text-center.btn-lg
+                      | Iniciar suscripción
+                      <i class="fa fa-check" aria-hidden="true"></i>
+
+        else 
+                div(class='alert alert-danger text-center' role='alert' style="margin-top: 10px;")= 'No se encontraron productos para este shortcode  '
+                div.text-center
+                  a.btn.btn-danger.btn-lg.text-center.atras(href="/users/productos" style="margin-left: 10px; font-size: 18px;")
+                    | Regresar
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>

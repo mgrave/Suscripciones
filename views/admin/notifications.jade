@@ -1,0 +1,41 @@
+extends ../templates/default-admin
+
+block content
+  .container
+    .row 
+    hr
+    br
+    .col-md-12.animated.fadeIn.fast
+      .panel-group
+        .panel.panel-info
+          .panel-heading.text-center CONTENIDO GRATUITO ( PREMIUM )
+          .panel-body A través de SMS Premium podrás cambiar el número de notificaciones necesarias para que un cliente envie contenido gratuito a un asociado.
+
+    br
+    .row
+      .col-md-12
+        i(class="fa fa-spinner fa-spin fa-3x fa-fw text-loading", style="margin-top: 50px; margin-left: 480px; margin-bottom: 150px; font-size: 80px;")
+           span(class="sr-only")= 'Cargando registros'
+
+    .row
+      .col-md-10.col-md-offset-1
+          table#example.display.table.table-hover.table-condensed.table-striped.points_table(cellspacing='0', width='100%', style="display:none")
+            thead
+              tr
+                th.text-center Código corto
+                th.text-center Producto
+                th.text-center Total MT 's recibidos
+                //th.text-center Numeros suscritos
+                th.text-center MT 's para promoción
+            tbody
+              for dato in data
+                tr
+                  th.text-center #{dato.shortcode}
+                  th.text-center #{dato.producto}
+                  th.text-center #{dato.total}
+                  th.text-center 
+                    div
+                      input.brother-input(value=dato.nr, style='width: 15%; text-align: center; border: 2px solid #34C6A3; border-radius: 3%; padding: 2.5px; margin-left: 0px; margin-right: 0px;')
+                      button.btn.btn-info.btn-sm.changeNotifications(id-producto=dato.product_id) 
+                        i(class="fa fa-check" aria-hidden="true") 
+

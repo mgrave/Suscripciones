@@ -1,0 +1,32 @@
+extends ../templates/default-admin
+
+block content
+    .container.animated.fadeIn.fast
+      .row
+        .col-md-12
+          i(class="fa fa-spinner fa-spin fa-3x fa-fw text-loading", style="margin-top: 50px; margin-left: 480px; margin-bottom: 150px; font-size: 80px;")
+            span(class="sr-only")= 'Cargando registros'
+      .row
+        .col-md-12
+          table#example.display.table.table-hover.table-condensed.table-striped.points_table(cellspacing='0', width='100%', style="display:none")
+            thead
+              tr.text-center
+                th Operadora
+                th Número
+                th Status
+                th Accion
+            tbody
+              for dato in data
+               tr
+                  td #{dato.PREFIJO}
+                  td #{dato.TLF}
+                  
+                  if dato.ACT == 0
+                   td
+                      p.label.label-danger Inactivo
+                  else
+                    td
+                      p.label.label-success Activo
+                  td 
+                    a(href='/admin/edit/' + dato.ID, class='btn btn-primary btn-sm', data-id= dato.ID)= 'Editar  '
+                      span.glyphicon.glyphicon-wrench

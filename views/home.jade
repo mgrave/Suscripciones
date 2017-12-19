@@ -1,0 +1,477 @@
+extends templates/default
+
+block content
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js')
+  .main.animated.fadeIn.fast
+    .container.animated.fadeIn.fast
+      .row
+        .photo.col-md-5
+          if !user
+            img.pull-right(src='./images/insignia4.gif')
+        .col-md-5.get_form_inner.text-center.home
+          
+          
+            if !user
+              strong.__head Regístrate y recibe contenido de nuestros Productos
+              .text-center
+                hr.ortext2
+                form(name='registerForm', action= '/auth/signup' method='post')
+                  p Telefono
+                  .group
+                    select.pull-left.btn.btn-block(style="width:26%;" required='required' name="operadora" id="operadora")
+                      option.text-center(value="0414" id_operadora="1") 0414
+                      option.text-center(value="0424" id_operadora="2") 0424
+                      option.text-center(value="58412" id_operadora="5") 0412
+                      option.text-center(value="158" id_operadora="3" disabled) 0416
+                      option.text-center(value="199" id_operadora="4" disabled) 0426
+
+                    input.pull-right(type='text', name='telefono', id='telefono', required='required' style="width:70%;" maxlength="7")
+                    span.highlight
+                    //span.bar
+                  hr.divider
+                  br
+                  br
+                  p Datos de la cuenta
+                  .group
+                    input(type='text', name='nombre', id='nombre', required='required')
+                    span.highlight
+                    //span.bar
+                    label Nombre
+                  .group
+                    input(type='text', name='apellido', id='apellido', required='required')
+                    span.highlight
+                    //span.bar
+                    label Apellido
+                  .group
+                    input(type='email', name='email', id='email', required='required')
+                    span.smessage
+                    span.highlight
+                    //span.bar
+                    label Correo electrónico
+                  .group
+                    input(type='password', name='password', id='password', required='required')
+                    input(type='hidden', name='profile', value='Trainer')
+                    span.highlight
+                    //span.bar
+                    label Contraseña
+                  .group
+                    input(type='password', name='password1', id='password1', required='required')
+                    input(type='hidden', name='profile', value='Trainer')
+                    span.highlight
+                    //span.bar
+                    label Repetir contraseña
+                  
+                  .form-group.text-center
+                    | Al registrarte en nuestro sistema estarías aceptando los 
+                    a(href='', target='_blank') Términos y condiciones
+                  .form-group.text-center
+                    div
+                      button.btn.btn-info.btn-lg.btn-registro(type='submit') Registrar
+                    .container-fluid.loading.hidden
+                      label
+                        span.fa.fa-refresh.fa-spin
+                        |                               Signing up...
+                  p.text-center
+                    | ¿ Ya tienes una cuenta ? 
+                    a(href='/auth/signin', data-toggle='modal') Entrar al sistema
+            else 
+                //DASHBOARD
+                
+              
+              .main(style='width: 100%;')
+  // MAIN CONTENT
+
+  if user
+    .main-content
+      .container-fluid
+        .row
+          .col-md-7.offset-1
+            // MY OWM SUSCRIPTIONS
+
+            #mis-suscripciones.panel(style="margin-bottom: 15px;")
+              .panel-heading
+                h3.panel-title
+                  span.fa.fa-user-o.text-primary
+                  |   Mis suscripciones - Categoria
+                  
+                .right
+                  button.btn-toggle-collapse(type='button')
+                    i.lnr.lnr-chevron-up
+                  button.btn-remove(type='button')
+                    i.lnr.lnr-cross
+                br
+                ul#myTab.nav.nav-tabs.bar_tabs(role='tablist')
+                  li(role='presentation')
+                    a#home-tab(href='#MS_HIPICOS', role='tab', data-toggle='tab', aria-expanded='true') Hipicos
+                  li(role='presentation')
+                    a#profile-tab(href='#MS_PARLAY', role='tab', data-toggle='tab', aria-expanded='false') Parlay
+                  li(role='presentation')
+                    a#profile-tab2(href='#MS_LOTERIAS', role='tab', data-toggle='tab', aria-expanded='false') Loterias
+        
+              .panel-body.no-padding
+                #myTabContent.tab-content
+                  #MS_INICIO.tab-pane.fade.text-center.active.in(role='tabpanel', aria-labelledby='home-tab') Ve tus suscripciones por 
+                    span.label.label-primary Categoria
+                  #MS_HIPICOS.tab-pane.fade.in(role='tabpanel', aria-labelledby='home-tab')
+                    
+                    if Categoria_Hipicos.length < 1 
+                      p.alert.alert-warning.text-center ¡Te invitamos a suscribirte a productos de esta categoria!
+                    
+                    else
+                      table.table.table-striped.table-condensed
+                        thead
+                          tr
+                            th Nombre
+                            th SC
+                            th Fecha
+                            th Proveedor de contenido
+                            th Status
+                            th Eliminar
+                        tbody
+                          each Hipicos in Categoria_Hipicos
+                            tr
+                              td
+                                a(href='#') #{Hipicos.PRODUCTO}
+                              td #{Hipicos.SC}
+                              td #{Hipicos.FECHA_SUSCRIPCION}
+                              td #{Hipicos.CLIENTE}
+                              td
+                                if Fecha == Hipicos.FECHA_SUSCRIPCION
+                                  p.label.label-success Actualizado
+                                else
+                                  p.label.label-warning No actualizado
+                              td
+                                button.btn.btn-danger.btn-sm.eliminar-suscripcion1(numero= Hipicos.TELEFONO id= Hipicos.ID_PRODUCTO prefix= Hipicos.PRFIJO)
+                                  span.fa.fa-remove
+
+                          
+
+                  #MS_PARLAY.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
+                    if Categoria_Parlays.length < 1 
+                      p.alert.alert-warning.text-center Te invitamos a suscribirte a productos de esta categoria:   
+                        a.label.label-info(href="/users/productos")    Productos
+                    
+                    else
+                      table.table.table-striped.table-condensed
+                        thead
+                          tr
+                            th Nombre
+                            th SC
+                            th Fecha
+                            th Proveedor de contenido
+                            th Status
+                            th Suscribir
+                        tbody
+                          each Parlay in Categoria_Parlays
+                            tr
+                              td
+                                a(href='#') #{Parlay.PRODUCTO}
+                              td #{Parlay.SC}
+                              td #{Parlay.FECHA_SUSCRIPCION}
+                              td #{Parlay.CLIENTE}
+                              td
+                                if Fecha == Parlay.FECHA_SUSCRIPCION
+                                  p.label.label-success Actualizado
+                                else
+                                  p.label.label-warning No actualizado
+                              td
+                                button.btn.btn-danger.btn-sm.eliminar-suscripcion1(numero= Parlay.TELEFONO id= Parlay.ID_PRODUCTO prefix= Parlay.PRFIJO)
+                                  span.fa.fa-remove
+
+                  #MS_LOTERIAS.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
+                    if Categoria_Loterias.length < 1 
+                      p.alert.alert-warning.text-center ¡Te invitamos a suscribirte a productos de esta categoria!
+                    
+                    else
+                     table.table.table-striped.table-condensed
+                        thead
+                          tr
+                            th Nombre
+                            th SC
+                            th Fecha
+                            th Proveedor de contenido
+                            th Status
+                            th Suscribir
+                        tbody
+                          each Loterias in Categoria_Loterias
+                            tr
+                              td
+                                a(href='#') #{Loterias.PRODUCTO}
+                              td #{Loterias.SC}
+                              td #{Loterias.FECHA_SUSCRIPCION}
+                              td #{Loterias.CLIENTE}
+                              td
+                                if Fecha == Loterias.FECHA_SUSCRIPCION
+                                  p.label.label-success Actualizado
+                                else
+                                  p.label.label-warning No actualizado
+                              td
+                                button.btn.btn-danger.btn-sm.eliminar-suscripcion1(numero= Loterias.TELEFONO id= Loterias.ID_PRODUCTO prefix= Loterias.PRFIJO)
+                                  span.fa.fa-remove
+              .panel-footer
+                .row
+                  .col-md-6
+                    span.panel-note
+                      i.fa.fa-clock-o
+                      | Ultimas suscripciones
+                  .col-md-6.text-right
+                    a.btn.btn-primary(href='/users/mis-suscripciones') Ver por numero telefonico
+
+
+            .panel
+              .panel-heading
+                h3.panel-title
+                  i.fa.fa-clock-o
+                  |   Ultimos productos
+                .right
+                  button.btn-toggle-collapse(type='button')
+                    i.lnr.lnr-chevron-up
+                  button.btn-remove(type='button')
+                    i.lnr.lnr-cross
+                br
+                ul#myTab.nav.nav-tabs.bar_tabs(role='tablist')
+                  li(role='presentation')
+                    a#home-tab(href='#UP_HIPICOS', role='tab', data-toggle='tab', aria-expanded='true') Hipicos
+                  li(role='presentation')
+                    a#profile-tab(href='#UP_PARLAY', role='tab', data-toggle='tab', aria-expanded='false') Parlay
+                  li(role='presentation')
+                    a#profile-tab2(href='#UP_LOTERIAS', role='tab', data-toggle='tab', aria-expanded='false') Loterias
+              .panel-body.no-padding
+                #myTabContent.tab-content
+                  #UP_INICIO.tab-pane.fade.text-center.active.in(role='tabpanel', aria-labelledby='home-tab') Ve los ultimos productos por 
+                    span.label.label-primary Categoria
+                  #UP_HIPICOS.tab-pane.fade.in(role='tabpanel', aria-labelledby='home-tab')
+                    table.table.table-striped.table-condensed
+                      thead
+                        tr
+                          th Nombre
+                          th SC
+                          th Fecha
+                          th Proveedor
+                          th Status
+                          th Suscribir
+                      tbody
+                        each up_hipicos in Categoria_Hipicos_Recientes
+                          tr
+                            td
+                              a(href='#') #{up_hipicos.NOMBRE_PRODUCTO}
+                            td #{up_hipicos.SC}
+                            td #{up_hipicos.FECHA_CREADO}
+                            td #{up_hipicos.PCA}
+                            td
+                              if Fecha == up_hipicos.FECHA_ACTUALIZACION
+                                p.label.label-success Actualizado
+                              else
+                                p.label.label-warning No actualizado
+                            td
+                              button.btn.btn-success.btn-sm.suscribe(id_producto='#{up_hipicos.ID_PRODUCTO}' id_cliente='#{up_hipicos.ID_CLIENTE}')
+                                span.glyphicon.glyphicon-thumbs-up
+                  #UP_PARLAY.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
+                    if Categoria_Parlays_Recientes < 1
+                      p.alert.alert-warning.text-center ¡No hay productos de esta categoria!
+                    else
+                      table.table.table-striped.table-condensed
+                      thead
+                        tr
+                          th Nombre
+                          th SC
+                          th Fecha
+                          th Proveedor
+                          th Status
+                          th Suscribir
+                      tbody
+                        each up_parlays in Categoria_Parlays_Recientes
+                          tr
+                            td
+                              a(href='#') #{up_parlays.NOMBRE_PRODUCTO}
+                            td #{up_parlays.SC}
+                            td #{up_parlays.FECHA_CREADO}
+                            td #{up_parlays.PCA}
+                            td
+                              if Fecha == up_parlays.FECHA_ACTUALIZACION
+                                p.label.label-success Actualizado
+                              else
+                                p.label.label-warning No actualizado
+                            td
+                              button.btn.btn-success.btn-sm.suscribe(id_producto='#{up_hipicos.ID_PRODUCTO}' id_cliente='#{up_hipicos.ID_CLIENTE}')
+                                span.glyphicon.glyphicon-thumbs-up
+                  #UP_LOTERIAS.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
+                    if Categoria_Loterias_Recientes < 1
+                      p.alert.alert-warning.text-center ¡No hay productos de esta categoria!
+                    else
+                      table.table.table-striped.table-condensed
+                      thead
+                        tr
+                          th Nombre
+                          th SC
+                          th Fecha
+                          th Proveedor
+                          th Status
+                          th Suscribir
+                      tbody
+                        each up_loterias in Categoria_Loterias_Recientes
+                          tr
+                            td
+                              a(href='#') #{up_loterias.NOMBRE_PRODUCTO}
+                            td #{up_loterias.SC}
+                            td #{up_loterias.FECHA_CREADO}
+                            td #{up_loterias.PCA}
+                            td
+                              if Fecha == up_loterias.FECHA_ACTUALIZACION
+                                p.label.label-success Actualizado
+                              else
+                                p.label.label-warning No actualizado
+                            td
+                              button.btn.btn-success.btn-sm.suscribe(id_producto='#{up_hipicos.ID_PRODUCTO}' id_cliente='#{up_hipicos.ID_CLIENTE}')
+                                span.glyphicon.glyphicon-thumbs-up
+              .panel-footer
+                .row
+                  .col-md-6
+                    span.panel-note
+                      i.fa.fa-clock-o
+                      | Productos mas recientes
+                  .col-md-6.text-right
+                    a.btn.btn-primary(href='/users/productos') Ver todos los productos
+
+            p.pull-left(style="float:left;") 
+            span.glyphicon.glyphicon-copyright-mark
+            |     Insignia 2017 - Derechos reservados
+            // END RECENT PURCHASES
+            
+             
+          
+            // /MY OWM SUSCRIPTIONS
+          .col-md-5.offset-1
+            .panel(style="heigth: 100%;")
+              .panel-heading
+                h3.panel-title
+                  span.fa.fa-bar-chart.text-primary
+                  |   Estadistica de suscripciones - Categoria
+                  
+                .right
+                  button.btn-toggle-collapse(type='button')
+                    i.lnr.lnr-chevron-up
+                  button.btn-remove(type='button')
+                    i.lnr.lnr-cross
+               
+              .panel-body.no-padding
+                canvas#myChart(width='80', height='61')
+
+                  script.
+                    var ctx = document.getElementById("myChart");
+                    var Data = !{JSON.stringify(DataChart)};
+                    var Labels = !{JSON.stringify(LabelsChart)};
+                    console.log(Data);
+                    console.log(Labels);
+                    
+                    var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                    labels: Labels,
+                    datasets: [{
+                    label: 'Productos',
+                    data: Data,
+                    backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                    }]
+                    },
+                    options: {
+                    legend: {
+                      labels: {
+                          
+                      }
+                    },
+                    scales: {
+                    yAxes: [{
+                      ticks: {
+                        beginAtZero:true,
+                        stepSize: 1
+                      }
+                    }]
+                    }
+                    }
+                    });
+
+              .panel-footer
+                .row
+                  .col-md-6
+                    span.panel-note
+                      i.fa.fa-user
+                      | Mis categorias
+                  .col-md-6.text-right
+                    a.btn.btn-primary(href='/users/mis-suscripciones') Ver mis suscripciones
+            
+
+            button.btn.btn-success.pull-right(style="border-radius: 30px; float:right;" data-toggle='modal', data-target='#Interes') 
+              span.glyphicon.glyphicon-phone
+              |   Te puede interesar  
+
+          
+
+
+
+
+            //MODAL DEL LADO IZQUIERDO (TE PUEDE INTERESAR)
+    
+  // Modal
+  #Interes.modal.right.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel2')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header(style="background-color: #4285F4;")
+          h4.modal-title.text-center(style="color: white;") ¡Sabemos lo que te gusta!
+        .modal-body
+          h1.text-center(style="color: #0d47a1; font-family: Impact, Charcoal, sans-serif") 
+            span.fa.check-circle-on(style="font-size: 50px;") 
+              | #{user.nombre}
+          br
+          p.text-center
+            | Basados en tus suscripiones actuales te podemos recomendar una lista de productos a los cuales puedes suscribirte, los cuales fueron elegidos acorde a tus gustos.
+          
+          hr.divider
+          p.text-center 
+            | Recomendaciones
+            hr.divider
+          br
+          
+          ul.list-group
+            each Producto in Recomendados
+              li.list-group-item.justify-content-between.suscribe(id_producto='#{Producto.ID_PRODUCTO}' id_cliente='#{Producto.ID_CLIENTE}')
+                | #{Producto.NOMBRE_PRODUCTO}
+                span.badge.badge-default.badge-pill(style="overflow: hidden;") #{Producto.CATEGORIA}
+            
+          
+     // modal-content
+    // modal-dialog
+  // modal
+// container
+
+
+
+
+
+          
+            
+           
+           
+  
+
+
+
+
+
+

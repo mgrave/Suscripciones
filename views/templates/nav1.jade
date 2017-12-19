@@ -1,0 +1,52 @@
+nav.font-black.navbar.navbar-default.navbar-static-top(role='navigation')
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a(class="navbar-brand" href="#")
+        //i(class="fa fa-mobile icon-brand" aria-hidden="true")
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      ul.nav.navbar-nav.animated.fadeIn
+        li.active
+          //img.custom-img(width='90%', src='images/logo2.gif')
+          
+        if !user
+          li
+            a(href='/auth/signin') Entrar
+          li
+            a(href='/auth/signup') Registrarse
+        else
+          li
+            a(href='/home') Inicio
+          li
+            a(href='/users/mis-suscripciones') Suscripciones 
+          li
+            a(href='/users/numeros') Teléfonos 
+          li 
+            a(href='/users/productos') Productos  
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              | Ayuda 
+              span.caret
+            ul.dropdown-menu.animated.flipInX(role='menu')
+              li
+                a(class='nosotros')  Sobre nosotros.
+              li
+                a(class='empezar')  ¿Como empezar?.
+      ul.nav.navbar-nav.navbar-right
+        li
+          p.navbar-text
+        if user
+
+          li.dropdown
+            a.dropdown-toggle.text-capitalize(href='#', data-toggle='dropdown')
+              | #{user.nombre}
+              span.caret
+            ul.dropdown-menu.animated.flipInX(role='menu')
+              li
+                a(href='/users/panel')  Perfil
+              li
+                a(href='/auth/logout')  Cerrar Sesión

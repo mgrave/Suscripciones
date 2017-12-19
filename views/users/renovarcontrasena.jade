@@ -1,0 +1,39 @@
+extends ../templates/default
+
+block content
+  .main
+    // START MAIN
+    .container.animated.fadeIn.fast
+      // START CONTAINER
+      .row
+        // START ROW
+        .photo.col-md-5
+          // START COL 5
+          img.pull-right(src='../../images/insignia4.gif')
+        // END COL 5
+        if !error
+          .col-sm-4.get_form_inner.text-center.login
+            h4.__head Nueva Contraseña 
+            .text-center
+              hr.ortext2
+              form(name='registerForm',action= 'http://192.168.1.43:3000/postnewpassword/#{id}/#{password1}', method='post' autocomplete='off')
+                .group
+                  input(type='password', name='password', id="password" , required='required')
+                  span.smessage
+                  span.highlight
+                  span.bar
+                  label Contraseña
+                .group
+                  input(type='password', name='password1', id='password1' required='required')
+                  input(type='hidden', name='profile', value='Trainer')
+                  span.highlight
+                  span.bar
+                  label Repite la contraseña
+                .form-group.text-center
+                  div
+                    button.btn.btn-info.btn-lg.newpwd1(type='submit') Aceptar
+        else 
+          .col-sm-4.get_form_inner.text-center.login
+            div(class='alert alert-danger' role='alert' style="margin-top: 50px;")
+              | ¡ Error inesperado ! 
+              i(class="fa fa-exclamation-triangle" aria-hidden="true")

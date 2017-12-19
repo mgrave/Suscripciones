@@ -1,0 +1,51 @@
+extends ../templates/default-admin
+
+block content
+  .container
+    .row 
+    hr
+    br
+    .col-md-12.animated.fadeIn.fast
+      .panel-group
+        .panel.panel-info
+          .panel-heading.text-center CONTENIDO GRATUITO OPCIONES AVANZADAS
+          .panel-body A través de SMS Premium podrás cambiar el número de notificaciones necesarias para que un cliente envie contenido gratuito a un asociado.
+
+    br
+    .row
+      .col-md-12
+        i(class="fa fa-spinner fa-spin fa-3x fa-fw text-loading", style="margin-top: 50px; margin-left: 480px; margin-bottom: 150px; font-size: 80px;")
+           span(class="sr-only")= 'Cargando registros'
+
+    .row
+      .col-md-10.col-md-offset-1
+          table#example.display.table.table-hover.table-condensed.table-striped.points_table(cellspacing='0', width='100%', style="display:none")
+            thead
+              tr
+                th.text-center Producto
+                th.text-center Cliente
+                th.text-center Actualizado
+                th.text-center Disponible
+                th.text-center Límite de días
+            tbody
+              for dato in data
+                tr
+                  th.text-center #{dato.desc_producto}
+                  th.text-center #{dato.cliente}
+                  th.text-center 
+                    if dato.actualizado == 1
+                      p.si SI
+                    else
+                      p.no NO
+                  th.text-center 
+                    if dato.disponible == 1
+                      p.si SI
+                    else
+                      p.no NO
+                  th.text-center 
+                    div
+                      input.brother-input(value=dato.limite, style='width: 15%; text-align: center; border: 2px solid #34C6A3; border-radius: 3%; padding: 2.5px; margin-left: 0px; margin-right: 0px;')
+                      button.btn.btn-info.btn-sm.putfecha(id-producto=dato.id_producto) 
+                        i(class="fa fa-check" aria-hidden="true") 
+
+
