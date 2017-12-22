@@ -58,7 +58,7 @@ module.exports = {
             result[i].CATEGORIA = result[i].CATEGORIA.toUpperCase();
             console.log("CATEGORIA CON EL UPPERCASE ->>    "+result[i].CATEGORIA);
             if (result[i].CATEGORIA == 'HIPICOS') {Categoria_Hipicos.push(result[i])}
-            if (result[i].CATEGORIA == 'LOTERIAS') {Categoria_Loterias.push(result[i])}
+            if (result[i].CATEGORIA == 'LOTERIAS' || result[i].CATEGORIA == 'ANIMALITOS') {Categoria_Loterias.push(result[i])}
             if (result[i].CATEGORIA == 'PARLAY') {Categoria_Parlays.push(result[i])}
             if (result[i].CATEGORIA == 'PRENSA') {Categoria_Prensa.push(result[i])}
             if (result[i].CATEGORIA == 'HOROSCOPO') {Categoria_Horoscopo.push(result[i])}

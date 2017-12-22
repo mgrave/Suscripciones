@@ -24,6 +24,11 @@ router.get('/users/panel', AuthMiddleware.isLogged ,
           controllers.UserController.getUserPanel);     //REVISADO!!
 router.get('/users/numeros', AuthMiddleware.isLogged ,
           controllers.UserController.getNumeros);       //REVISADO!!
+
+//PRODUCTOS PARA EL SEARCH DE PRODUCTOS
+router.get('/users/numeros/search', AuthMiddleware.isLogged ,
+          controllers.UserController.getProductsSearch);  
+
 //NUMEROS PARA EL DASHBOARD
 router.get('/users/numeros/dashboard', AuthMiddleware.isLogged ,
           controllers.UserController.getNumerosDashboard); 

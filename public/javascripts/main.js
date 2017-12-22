@@ -1,3 +1,116 @@
+/*BUSQUEDA DE PRODUCTOS -------------------------*/
+$(document).ready(function() {
+var path = window.location.pathname;
+
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
+      matches = [];
+      substrRegex = new RegExp(q, 'i');
+      
+      $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
+    cb(matches);
+  };
+};
+
+
+if (path == '/users/productos'){
+$.ajax({
+  url: '/users/numeros/search',
+  type: 'GET',
+})
+.done(function(response) {
+  //console.log(response);
+
+//ELIMINANDO CODIGO CORTO QUE SE ENCUENTRA CONCATENADO AL NOMBRE DEL PRODUCTO
+for (var i = 0; i < response.length; i++) {
+  var Product = response[i].PRODUCTO.split("_");
+  if (Product[3] == undefined) Product[3] = ''; var piso ='';
+
+response[i].PRODUCTO = Product[2]+piso+Product[3];
+};
+
+//ELIMINANDO PRODUCTOS QUE NO PERTENEZCAN A LAS CATEGORIAS HIPICOS, PARLAY O LOTERIAS.(¡NO FUNCIONA TODAVIA!)
+for (var i = 0; i < response.length; i++) {
+  var entrante = response[i].CATEGORIA.toUpperCase();
+  if (entrante != 'HIPICOS') response.splice(i, 1);
+  if (entrante != 'PARLAY') response.splice(i, 1);
+  if (entrante != 'LOTERIAS') response.splice(i, 1);
+  if (entrante != 'ANIMALITOS') response.splice(i, 1);
+};
+
+
+var Productos = new Bloodhound({
+   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('PRODUCTO','SHORTCUT','CLIENTE', 'CATEGORIA', 'OPERADORA'),
+   queryTokenizer: Bloodhound.tokenizers.whitespace,
+   local: response,
+});
+
+//console.log("BLOODHOUND -> ",Productos);
+
+$('#the-basics .typeahead').typeahead(null, {
+  name: 'Productos',
+  display: 'PRODUCTO',
+  source: Productos,
+  limit: 5,
+  templates: {
+    empty: [
+      '<div class="empty-message">',
+        '<p class="text-center>¡No se encontraron resultados para los datos ingresados!<p>',
+      '</div>'
+    ].join('\n'),
+    
+    suggestion: function(response) {
+      var Class = '';
+      if (response.OPERADORA == 'Movilnet') {Class = 'label-warning';}
+      if (response.OPERADORA == 'Movistar') {Class = 'label-primary';};
+      if (response.OPERADORA == 'Digitel') {Class = 'label-danger';};
+
+
+         return '<div class="panel panel-headline"> <div class="panel-heading"><span class="pull-right">'+response.CATEGORIA+'</span> <h3 class="panel-title pull-left"><strong>' + response.PRODUCTO + '</strong></h3><br><span class="pull-left"><p class="label label-primary">'+response.CLIENTE+'</p>   </span> <p class="panel-subtitle pull-right"><span><span class="label '+Class+'">'+response.OPERADORA+' </span><br><p class="label label-info pull-left" style="margin-top:5px; margin-left:3px;"> SC - ' + response.SHORTCUT + '</p></span></p> </div> <div class="panel-body"></div> </div>';
+       }
+  }
+});
+
+//CAPTURANDO VALOR SELECCIONADO EL EL SEARCH
+$('#search').bind('typeahead:selected', function(obj, datum, name) {      
+  console.log("DATNUM-> ",datum); 
+    SuscribeProduct(datum.ID_PRODUCTO, datum.ID_CLIENTE, datum.OPERADORA);
+});
+
+
+
+/*
+<p> '+response.CATEGORIA+' - '+response.OPERADORA+' - '+response.CLIENTE+' - <strong>' + response.PRODUCTO + '</strong> - ' + response.SHORTCUT + '</p>
+*/
+
+
+              
+
+
+
+
+
+
+
+
+
+ 
+});//response
+
+};//if
+
+
+});//DOCUMENT READY
+ 
+
+
+
+
 $(document).ready(function(e){
 
   var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
@@ -1465,4 +1578,175 @@ $('.suscribe').on('click',function(e){
     
 
  })
+});
+
+//FUNCION PARA SUSCRIBIRME A UN PRODUCTO DESDE EL SEARCH BOX DE PRODUCTOS
+function SuscribeProduct(producto, cliente, operadora){
+    var id_producto = producto;
+    var id_cliente = cliente;
+    var Operadora_entrante = operadora;
+    
+
+
+      $.ajax({
+        type: 'GET',
+        url: '/users/numeros/dashboard',
+        success: function(response, text, xhr){
+          if(response){
+            console.log(response);
+            var buttons = {
+              contenido: []
+            };
+
+            
+
+
+            //ELIMINANDO NUMEROS QUE NO ESTEN VERIFICADOS
+            for (var i = 0; i < response.length; i++) {
+              if (response[i].ACTIVO == 0) {response.splice(i, 1)}
+            };
+          //HACIENDO PUSH DE NUMEROS PARA MOSTRARLOS COMO BOTONES
+            for (var i = 0; i < response.length; i++) {
+              buttons.contenido.push(response[i].PREFIJO+"-"+response[i].TELEFONOS);
+            };
+            //debug
+            //console.log("BOTONES ->   ",buttons.contenido);
+            for (var i = 0; i < buttons.contenido.length; i++) {
+               var campos         = buttons.contenido[i].split(' ');
+               var Operadora      = campos[0];
+               var Prefijo        = campos[1];
+              //debug
+              //console.log("Operadora del for -> ",Operadora," Operadora dentrante -> ",Operadora_entrante);
+              if (Operadora != Operadora_entrante){buttons.contenido.splice(i, 1);}
+           };
+           
+//Validando titulo del modal, en caso de que no se posean numeros para la linea seleccionada.
+var tituloModal = '';
+if (buttons.contenido.length == 0) tituloModal = '¡No posee numeros en la siguiente operadora!'
+if (buttons.contenido.length > 0) tituloModal = '¡Elije el numero con el cual deseas suscribirte!'
+
+   $.metroMessageBox({
+      title: tituloModal,
+      buttons:buttons.contenido,
+      activebutton: "#2C998E",
+      sound: false,
+    },function(action, button){
+       //SUSCRIBIENDOME
+       var Numero = button;
+       var campos     = Numero.split('-');
+       var Linea      = campos[0];
+       var Recipiente = campos[1];
+       var Product_id = id_producto;
+       var Cliente_id = id_cliente;
+       //DEBUG
+       //console.log("Numero -> "+Numero+" Linea -> "+Linea+" Recipiente -> "+Recipiente);
+       //console.log("Cliente_id ->> "+Cliente_id+"  Product_id ->>  "+Product_id);
+       
+
+
+
+       //SUSCRIBIENDOME (AJAX)
+       $.ajax({
+              type:'POST',
+              url:'/suscribirDashboard/'+Product_id+'/'+Linea+'/'+Recipiente+'/'+Cliente_id,
+              success: function(data, text, xhr){
+                if(data == "OK") {
+            $.smallBox({
+              title:"¡Felicidades!",
+              content:"Te suscribiste al producto seleccionado",
+              colortime:2000,
+              colors:["#28A34F","#21AFAB"],
+              buttons:["Continuar"],  
+              colortime:2000,
+              sound: false,
+              colors:["#28A34F","#21AFAB"],
+            },function(action, button){
+              location.reload();  
+            }); 
+
+
+                } else {
+                  $.smallBoxKill();
+                  $.smallBox({
+                    title:"¡Error!",
+                    width: 500,
+                    content:"Ya estás suscrito a este producto",
+                    colortime:2000,
+                    sound: false,
+                    colors:["#DE594C","#D0582A"],
+                  }); 
+                }
+              },
+              error: function(err){
+                console.log(err);
+              }
+            });
+
+
+
+
+       
+    });
+
+
+
+
+          }else {
+            console.log("NO SE RECIBIERON DATOS");
+          }
+        },
+        error: function(err){
+          alert('error');
+        }
+      })
+    
+
+    
+}
+
+
+//CONTROLADOR DEL CARROUSEL
+
+$(document).ready(function() {
+ 
+var owl = $('.owl-carousel');
+var owl_hipicos = $('.owl-hipicos');
+var owl_parlay = $('.owl-parlay');
+
+owl.owlCarousel({
+    items:4,
+    loop:true,
+    margin:10,
+    autoplay:true,
+    autoplayTimeout:1000,
+    autoplayHoverPause:false
+});
+
+
+owl_hipicos.owlCarousel({
+    items:4,
+    loop:true,
+    margin:10,
+    autoplay:true,
+    autoplayTimeout:1000,
+    autoplayHoverPause:false
+});
+
+
+owl_parlay.owlCarousel({
+    items:4,
+    loop:true,
+    margin:10,
+    autoplay:true,
+    autoplayTimeout:1000,
+    autoplayHoverPause:false
+});
+  
+
+ $('.link').on('click', function(event){
+    alert("FUNCION DEL CALLBACK",event);
+  });
+
+
+ 
 });

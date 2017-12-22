@@ -4,21 +4,87 @@ block content
   .container
     .row
       .col-md-6
-        .input-group
-          input.form-control(type="text")
-          a.input-group-addon(href="#" style="background-color: white;")
-            i.glyphicon.glyphicon-search
-    
-  br
-  br
-  p.alert.alert-danger oijfd
-  
+        .notice.notice-info(style="margin-left: -80px;")
+              | Busqueda de productos por  
+              strong Categoria, Nombre, Pronosticador, Codigo corto 
+      
+      
 
-  .row
-    .container-fluid
-      .col-md-4.offset-1
-        p.alert.alert-warning.text-center Movilnet
-      .col-md-4.offset-1
-        p.alert.alert-info.text-center Movistar
-      .col-md-4.offset-1
-        p.alert.alert-danger.text-center Digitel
+    
+    
+    
+    br
+    .row(style="margin:0 auto" align="center")
+      .col-md-12
+        #the-basics.input-group
+          input#search.typeahead.form-control(type="text" placeholder="Ingrese producto, shortcut o categoria")
+          a.input-group-addon(href="#" style="background-color: white-gray; visibility: hidden;")
+            i.glyphicon.glyphicon-search
+
+      
+      
+    br
+    
+     
+    .row
+      .col-md-12
+        h3 Hipicos   
+          span.glyphicon.glyphicon-circle-arrow-right
+        hr.divider
+        
+        #owl-demo.owl-carousel.owl-theme
+          .item.link(style="background-color: #d9534f;")
+            strong.text-center RADANIMALITOS
+            br
+            br
+            
+            strong.label.label-primary.text-center Alexis E. Zambrano
+            strong.label.label-info.text-center(style="margin-left: 2%;") SC-170
+            br
+            strong.label.label-warning.text-center Movilnet
+          .item(style="background-color: #FF8800;")
+            h1 Parlay
+          .item(style="background-color: #00695c;")
+            h1 Loterias
+      
+        a.pull-right(href="#") Ver todos
+
+      .col-md-12
+        h3 Parlay   
+          span.glyphicon.glyphicon-circle-arrow-right
+        hr.divider
+        
+        #owl_hipicos.owl-carousel.owl-theme
+          .item(style="background-color: #d9534f;")
+            h1.text-center Hipicos
+          .item(style="background-color: #FF8800;")
+            h1 Parlay
+          .item(style="background-color: #00695c;")
+            h1 Loterias
+        a.pull-right(href="#") Ver todos
+
+      .col-md-12
+        h3 Loterias   
+          span.glyphicon.glyphicon-circle-arrow-right
+        hr.divider
+        
+        #owl_parlay.owl-carousel.owl-theme
+          .item(style="background-color: #d9534f;")
+            h1.text-center Hipicos
+          .item(style="background-color: #FF8800;")
+            h1 Parlay
+          .item(style="background-color: #00695c;")
+            h1 Loterias
+        a.pull-right(href="#") Ver todos
+
+    br
+    hr.divider
+    p.pull-left(style="float:left;") 
+      span.glyphicon.glyphicon-copyright-mark
+      |     Insignia Mobile 2017 - Derechos reservados
+
+
+
+          
+
+    

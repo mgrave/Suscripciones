@@ -607,6 +607,48 @@ module.exports = {
     
   },
 
+
+
+  /*GET DE PRUEBA PARA OBTENER PRODUCTOS PARA EL SEARCH BOX */
+  getProductsSearch: function(req, res, next){
+    var config = require('.././database/config');
+    var db = mysql.createConnection(config);
+    db.connect();
+    var sql = "SELECT * FROM insignia_suscripciones.abonado";
+    var sql1 = ` SELECT DISTINCT(
+                  IF(op.id = 1 OR op.id = 2,
+                      'Movistar',
+          IF(op.id = 3 OR op.id = 4,
+            'Movilnet',
+          IF(op.id = 5 OR op.id = 6,
+                      'Digitel','DIGITEL')))) AS OPERADORA,
+                  pc.sc SHORTCUT, producto.id_producto ID_PRODUCTO, producto.alias_producto CATEGORIA, producto.desc_producto PRODUCTO, cliente.Id_cliente ID_CLIENTE, cliente.Des_cliente CLIENTE
+              FROM
+                  insignia_suscripciones.proveedor_de_contenido pc
+                      INNER JOIN
+                  sms.sc_id sc ON sc.sc_id = pc.sc
+                      INNER JOIN
+                  insignia_masivo_premium.operadora op ON op.id = sc.id_op
+            INNER JOIN 
+          sms.producto producto ON producto.id_sc = sc.Id_sc
+            INNER JOIN
+          sms.cliente cliente ON producto.cliente = cliente.Id_cliente
+          WHERE SUBSTRING(producto.desc_producto, 1, 7) NOT LIKE 'CERRADO' `;
+
+    db.query(sql1, function(err, result){
+      if(err){
+        db.end()
+        console.log('Ups! hay un error');
+      } else {
+        res.send(result);
+      }
+    });
+    
+  },
+
+
+
+
   searchSC: function(req, res, next){
 
     var sql = `SELECT 
