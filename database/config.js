@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 var config = {
-  host: '192.168.1.117',
-  user: 'robertocanua',
-  password: 'KwZUkeWB',
-  database: 'insignia_suscripciones',
+  host: process.env.MYSQL_HOST || 'mysql_db',
+  user: process.env.MYSQL_USER || 'usuario',
+  password: process.env.MYSQL_PASSWORD || 'password',
+  database: process.env.MYSQL_DATABASE || 'suscripcion',
   multipleStatements: true
 };
 
